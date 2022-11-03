@@ -4,9 +4,9 @@ public class ContainerWithMostWater {
 
     public static void main(String[] args) {
 
-        int[] height = {1,8,6,2,5,4,8,3,7};
+        int[] height = {5,18,17,6};
 
-        System.out.println("Most water -> " + getMostWaterValueBruteForce(height));
+        System.out.println("Most water -> " + getMostWaterValue(height));
     }
 
     // Brute Force
@@ -22,6 +22,31 @@ public class ContainerWithMostWater {
             }
         }
 
+        return volume;
+    }
+
+    // Solution 2 - two pointers
+    // Linear solution
+    // Time Complexity - O(n)
+
+    public static int getMostWaterValue(int[] height) {
+        int volume = 0;
+        int leftP = 0;
+        int rightP = height.length - 1;
+
+        while (leftP < rightP) {
+            int currLength = rightP - leftP;
+            int currHeight = Math.min(height[leftP], height[rightP]);
+
+            volume = Math.max(volume, currLength * currHeight);
+
+            if (height[leftP] < height[rightP]) {
+                leftP++;
+            }
+            else {
+                rightP--;
+            }
+        }
         return volume;
     }
 }
